@@ -13,7 +13,7 @@ export const authApi = createApi({
       query: () => ({
         url: '/',
         method: 'GET'
-      })
+      }),
     }),
 
 
