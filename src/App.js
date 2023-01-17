@@ -1,15 +1,23 @@
 import React from 'react'
-import { useGetAllBlogsQuery } from './features/auth/authApi'
+import { Route, Routes } from 'react-router'
+import Header from './components/Header'
+import Login from './pages/authPages/Login'
+import Home from './pages/Home'
 
 const App = () => {
-  const { data, error } = useGetAllBlogsQuery();
 
-
-  console.log(data);
   return (
-    <div>
-      <h1>hello </h1>
-    </div>
+    <>
+      <Header />
+      <Routes>
+
+        <Route path='/' element={<Home />} />
+        <Route path='login' element={<Login />} />
+
+      </Routes>
+
+
+    </>
   )
 }
 

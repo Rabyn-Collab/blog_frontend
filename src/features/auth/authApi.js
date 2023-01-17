@@ -9,14 +9,6 @@ export const authApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:5000' }),
   endpoints: (builder) => ({
 
-    getAllBlogs: builder.query({
-      query: () => ({
-        url: '/',
-        method: 'GET'
-      }),
-    }),
-
-
     userLogin: builder.mutation({
       query: (user) => ({
         url: '/api/userLogin',
