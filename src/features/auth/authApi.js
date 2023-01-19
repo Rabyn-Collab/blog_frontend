@@ -24,4 +24,4 @@ export const authApi = createApi({
 
 
 
-export const { useUserLoginMutation, useGetAllBlogsQuery } = authApi;
+export const { useUserLoginMutation } = authApi;

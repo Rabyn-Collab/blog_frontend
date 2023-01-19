@@ -9,3 +9,12 @@
 body {
   font-family: 'Nunito', sans-serif;
 }
+
+
+.nav-links {
+  @apply text-white
+}
+
+.nav-links:hover {
+  @apply text-slate-600
+}
