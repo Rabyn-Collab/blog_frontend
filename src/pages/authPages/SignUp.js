@@ -2,8 +2,13 @@ import React from 'react';
 import { Formik, useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useNavigate } from 'react-router';
+import { useUserSignUpMutation } from '../../features/auth/authApi';
+import { toast } from 'react-toastify';
 
 const SignUp = () => {
+
+  const [userSignUp, { isLoading, isError, error }] = useUserSignUpMutation();
+
 
   const nav = useNavigate();
   const registerSchema = Yup.object().shape({
@@ -18,7 +23,14 @@ const SignUp = () => {
       password: '',
       username: ''
     },
-    onSubmit: (val) => {
+    onSubmit: async (val) => {
+      try {
+        const response = await userSignUp(val).unwrap();
+        toast.success('successfully signUp');
+        nav(-1);
+      } catch (err) {
+        toast.error(err.data.message);
+      }
 
     },
     validationSchema: registerSchema
@@ -35,7 +47,7 @@ const SignUp = () => {
         <form onSubmit={formik.handleSubmit}>
 
           <div>
-            <label htmlFor='username'>Email</label>
+            <label htmlFor='username'>Username</label>
             <input
               onChange={formik.handleChange}
               value={formik.values.username}
@@ -76,10 +88,13 @@ const SignUp = () => {
 
           <div className='flex justify-center items-center mt-6'>
             <button
+              disabled={isLoading ? true : false}
               type='submit'
               className='bg-green-500 hover:bg-green-600 w-full py-1 text-white text-lg tracking-widest'
             >
-              SignUp
+              {isLoading ? <div
+                className='mx-auto h-9 w-9 rounded-full border-2 border-t-black animate-spin border-white'
+              ></div> : 'SignUp'}
             </button>
 
 

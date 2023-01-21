@@ -1,7 +1,7 @@
 import React from 'react';
 import { Formik, useFormik } from 'formik';
 import * as Yup from 'yup';
-import { useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import { useUserLoginMutation } from '../../features/auth/authApi';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
@@ -10,9 +10,11 @@ import { addUser } from '../../features/auth/userSlice';
 const Login = () => {
   const nav = useNavigate();
   const dispatch = useDispatch();
+  const location = useLocation();
+  const from = location.state?.from?.pathname;
 
-  // const p = ['function', {is:1, m:2}];
-  // const [sim, {is, m}] = p;
+
+
   const [userLogin, { isLoading, isError, error }] = useUserLoginMutation();
 
 
@@ -33,7 +35,7 @@ const Login = () => {
         const response = await userLogin(val).unwrap();
         dispatch(addUser(response));
         toast.success('successfully login');
-        nav(-1);
+        nav(from, { replace: true });
       } catch (err) {
         toast.error(err.data.message);
       }
@@ -82,6 +84,7 @@ const Login = () => {
 
           <div className='flex justify-center items-center mt-6'>
             <button
+              disabled={isLoading ? true : false}
               type='submit'
               className='bg-green-500 hover:bg-green-600 w-full py-1 text-white text-lg tracking-widest'
             >
@@ -94,7 +97,7 @@ const Login = () => {
           </div>
           <div className='mt-4 flex space-x-4 justify-center'>
             <h1>Don't have an account ?</h1>
-            <button disabled={isLoading ? true : false} onClick={() => nav('/signUp')} className='text-blue-500'>SignUp</button>
+            <button onClick={() => nav('/signUp')} className='text-blue-500'>SignUp</button>
           </div>
 
         </form>

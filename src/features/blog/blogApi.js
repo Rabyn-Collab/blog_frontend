@@ -14,8 +14,29 @@ export const blogApi = createApi({
       }),
       providesTags: ['Blogs']
     }),
+    addBlog: builder.mutation({
+      query: (val) => ({
+        url: '/api/addBlog',
+        method: 'POST',
+        body: val.blog,
+        headers: {
+          'Authorization': `Bearer ${val.token}`
+        }
+      }),
+      invalidatesTags: ['Blogs']
+    }),
 
-
+    updateBlog: builder.mutation({
+      query: (val) => ({
+        url: `/api/update/${val.id}`,
+        method: 'PATCH',
+        body: val.blog,
+        headers: {
+          'Authorization': `Bearer ${val.token}`
+        }
+      }),
+      invalidatesTags: ['Blogs']
+    }),
 
 
   })
@@ -23,4 +44,4 @@ export const blogApi = createApi({
 
 
 
-export const { useGetAllBlogsQuery } = blogApi;
+export const { useGetAllBlogsQuery, useAddBlogMutation, useUpdateBlogMutation } = blogApi;
