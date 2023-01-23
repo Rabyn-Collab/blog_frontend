@@ -21,7 +21,7 @@ const Home = () => {
             <p className='text-gray-700'>{blog.detail.substring(0, 100) + '....'}</p>
           </div>
 
-          {user.id === blog.author && <div className='flex justify-end'>
+          {user?.id === blog?.author && <div className='flex justify-end'>
             <button onClick={() => nav('/crud/edit', { state: blog })} className='p-2 ' ><i className="fa-solid fa-pen-to-square fa-lg"></i></button>
           </div>}
 

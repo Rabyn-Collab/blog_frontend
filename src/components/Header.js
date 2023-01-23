@@ -1,7 +1,9 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 
 const Header = () => {
+  const { user } = useSelector((store) => store.user);
   return (
     <div className='bg-pink-500 text-white px-10 py-3 flex justify-between items-center'>
       <h1 className='text-2xl'>Blog Post</h1>
@@ -9,7 +11,7 @@ const Header = () => {
         {/* 
         <NavLink className='nav-links' to='/login'>Login</NavLink> */}
         <NavLink to='crud/create' className='nav-links'>Create Post</NavLink>
-        <NavLink className='nav-links' >Profile</NavLink>
+        {user && <NavLink to='user/profile' className='nav-links' >Profile</NavLink>}
       </nav>
     </div>
   )

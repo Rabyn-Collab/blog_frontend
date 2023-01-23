@@ -11,9 +11,7 @@ const Login = () => {
   const nav = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
-  // const from = location.state?.from?.pathname;
-
-
+  const from = location.state?.from?.pathname;
 
   const [userLogin, { isLoading, isError, error }] = useUserLoginMutation();
 
@@ -35,7 +33,7 @@ const Login = () => {
         const response = await userLogin(val).unwrap();
         dispatch(addUser(response));
         toast.success('successfully login');
-        nav('/', { replace: true });
+        nav(from, { replace: true });
       } catch (err) {
         toast.error(err.data.message);
       }
